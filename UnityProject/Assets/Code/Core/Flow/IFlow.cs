@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IFlow
+namespace TankGame.Flow
 {
-	IEnumerator Flow();
+	public interface IFlow
+	{
+		IEnumerator Flow();
+	}
+
 }

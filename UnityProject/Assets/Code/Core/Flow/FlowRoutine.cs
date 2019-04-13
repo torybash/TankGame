@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 
-
-public class FlowRoutine
+namespace TankGame.Flow
 {
-	public IFlow flow;
-	public Routine routine;
-
-	public FlowRoutine(IFlow flow)
+	public class FlowRoutine
 	{
-		this.flow = flow;
-		routine = new Routine();
-		routine.Start(flow.Flow());
+		public IFlow flow;
+		public Routine routine;
+
+		public FlowRoutine(IFlow flow)
+		{
+			this.flow = flow;
+			routine = new Routine();
+			routine.Start(flow.Flow());
+		}
 	}
+
+
 }
-
-

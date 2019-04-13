@@ -1,18 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TankGame.Flow;
 
-public class MainMenuFlow : IFlow
+namespace TankGame.MainMenu
 {
-	public Routine Routine { get; set; }
-
-	public IEnumerator Flow()
+	public class MainMenuFlow : IFlow
 	{
+		private MainMenuControllerFactory mainMenuControllerFactory;
 
-		Debug.Log("Started!");
 
-		yield return new WaitForSeconds(0.5f);
+		public MainMenuFlow(MainMenuControllerFactory mainMenuControllerFactory)
+		{
+			this.mainMenuControllerFactory = mainMenuControllerFactory;
+		}
 
-		Debug.Log("Finished!");
-		
+		public IEnumerator Flow()
+		{
+			Debug.Log("Started!");
+
+			var mainMenu = mainMenuControllerFactory.GetMainMenu();
+
+			yield return mainMenu.Run();
+
+			Debug.Log("Finished!");
+		}
 	}
 }

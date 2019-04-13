@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreenController
+namespace TankGame.Screen
 {
 
+
+	public class ScreenController
+	{
+
+	}
 }

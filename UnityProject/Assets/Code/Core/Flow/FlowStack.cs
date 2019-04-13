@@ -1,37 +1,41 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using TankGame.Screen;
 
-public class FlowStack
+namespace TankGame.Flow
 {
-	private readonly ScreenController screenController;
-	private Stack<FlowRoutine> flows = new Stack<FlowRoutine>();
-
-	public FlowStack(ScreenController screenController)
+	public class FlowStack
 	{
-		this.screenController = screenController;
-	}
+		private readonly ScreenController screenController;
+		private Stack<FlowRoutine> flows = new Stack<FlowRoutine>();
 
-	public void Push(IFlow flow)
-	{
-		if (flows.Count > 0)
+		public FlowStack(ScreenController screenController)
 		{
-			var currentFlow = flows.Peek();
-			currentFlow.routine.Pause();
+			this.screenController = screenController;
 		}
-		var flowRoutine = new FlowRoutine(flow);
-		flows.Push(flowRoutine);
-		flowRoutine.routine.Finished += FlowFinished;
-	}
 
-	private void FlowFinished(bool manual)
-	{
-		flows.Pop();
-		if (flows.Count > 0)
+		public void Push(IFlow flow)
 		{
-			var previousFlow = flows.Peek();
-			previousFlow.routine.Unpause();
+			if (flows.Count > 0)
+			{
+				var currentFlow = flows.Peek();
+				currentFlow.routine.Pause();
+			}
+			var flowRoutine = new FlowRoutine(flow);
+			flows.Push(flowRoutine);
+			flowRoutine.routine.Finished += FlowFinished;
 		}
-	}
 
+		private void FlowFinished(bool manual)
+		{
+			flows.Pop();
+			if (flows.Count > 0)
+			{
+				var previousFlow = flows.Peek();
+				previousFlow.routine.Unpause();
+			}
+		}
+
+	}
 }
