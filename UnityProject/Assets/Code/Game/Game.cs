@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using TankGame.Views;
 using UnityEngine;
 
@@ -11,19 +12,20 @@ namespace TankGame.Game
 		private readonly GameControllerFactory gameControllerFactory;
 		private readonly TankDatabase tankDatabase;
 		private readonly CrewDatabase crewDatabase;
-
+		private readonly CardsDatabase cardsDatabase;
 		private Routine battleRoutine = new Routine();
 
 		private GameState gameState;
 
 		public bool IsPlaying { get; private set; }
 
-		public Game(ViewController viewController, GameControllerFactory gameControllerFactory, TankDatabase tankDatabase, CrewDatabase crewDatabase)
+		public Game(ViewController viewController, GameControllerFactory gameControllerFactory, TankDatabase tankDatabase, CrewDatabase crewDatabase, CardsDatabase cardsDatabase)
 		{
 			this.viewController = viewController;
 			this.gameControllerFactory = gameControllerFactory;
 			this.tankDatabase = tankDatabase;
 			this.crewDatabase = crewDatabase;
+			this.cardsDatabase = cardsDatabase;
 		}
 
 		public IEnumerator Run()
@@ -48,11 +50,12 @@ namespace TankGame.Game
 
 		private void OnDestinationSelected(string destinationId)
 		{
-			var battle = gameControllerFactory.GetBattle(gameState);
+			var battleState = DEBUG_GetTestBattle();
+
+			var battle = gameControllerFactory.GetBattle(battleState);
 			battleRoutine = new Routine();
 			battleRoutine.Start(battle.Run());
 		}
-
 
 		private GameState DEBUG_GetTestState()
 		{
@@ -62,6 +65,21 @@ namespace TankGame.Game
 				crewMemberStates = crewDatabase.GetCrew("Test")
 			};
 			return testState;
+		}
+
+
+		private BattleState DEBUG_GetTestBattle()
+		{
+			var battleState = new BattleState
+			{
+				round = 0,
+				battlePhase = BattlePhase.START_OF_ROUND,
+				deck = cardsDatabase.GetRandomCards(20),
+				activeCards = new List<CardData>(),
+				gameState = gameState
+
+			};
+			return battleState;
 		}
 	}
 }

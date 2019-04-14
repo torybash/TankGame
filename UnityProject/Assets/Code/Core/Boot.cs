@@ -29,10 +29,13 @@ namespace TankGame
 			var screenController = new ScreenController();
 			var flowStack = new FlowStack(screenController);
 
+
 			var tankDatabase = databaseHelper.Get<TankDatabase>();
 			var crewDatabase = databaseHelper.Get<CrewDatabase>();
-			var gameControllerFactory = new GameControllerFactory(flowStack, viewController, tankDatabase, crewDatabase);
+			var cardsDatabase = databaseHelper.Get<CardsDatabase>();
+			var gameControllerFactory = new GameControllerFactory(flowStack, viewController, tankDatabase, crewDatabase, cardsDatabase);
 			var mainMenuControllerFactory = new MainMenuControllerFactory(flowStack, viewController, gameControllerFactory);
+
 
 			//var settingsPanelLifecycleHandler = new SettingsPanelLifecycleHandler();
 

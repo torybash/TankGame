@@ -8,6 +8,7 @@ namespace TankGame.Game
 	{
 		public TankState tankState;
 		public List<CrewMemberState> crewMemberStates;
+		
 
 		public GameState()
 		{

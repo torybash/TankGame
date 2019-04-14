@@ -7,8 +7,11 @@ namespace TankGame.Game
 {
 	public class WorldMapView : View
 	{
-		public event Action<string> OnDestinationSelected;
+		public event Action<string> OnDestinationSelected = delegate { };
 
-
+		public void ClickedStart()
+		{
+			OnDestinationSelected("Test");
+		}
 	}
 }

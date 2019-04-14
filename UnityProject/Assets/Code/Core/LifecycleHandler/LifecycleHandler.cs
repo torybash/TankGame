@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace TankGame.Lifecycles
 {
-	public class LifecycleHandler<T> where T : ILifecycle
+	public abstract class LifecycleHandler<T> where T : ILifecycle
 	{
-		public virtual void InstanceAwake(T instance) { }
+		public abstract void InstanceAwake(T instance);
 
 		public LifecycleHandler()
 		{
