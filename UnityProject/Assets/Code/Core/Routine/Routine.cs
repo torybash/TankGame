@@ -11,21 +11,21 @@ public class Routine
 	public delegate void FinishedHandler(bool manual);
 
 	/// Termination event.  Triggered when the coroutine completes execution.
-	public event FinishedHandler Finished;
+	public event FinishedHandler finished;
 
 	/// Exception handler
-	public event Action<Exception> ExceptionHandler;
+	public event Action<Exception> exceptionHandler;
 
 	/// Internal coroutine wrapper
 	private RoutineWrapper coroutineWrapper;
 
 	/// Returns true if and only if the coroutine is running.  Paused tasks
 	/// are considered to be running.
-	public bool isRunning { get { return coroutineWrapper.Running; } }
+	public bool IsRunning { get { return coroutineWrapper.Running; } }
 	/// Returns true if and only if the coroutine is currently paused.
-	public bool isPaused { get { return coroutineWrapper.Paused; } }
+	public bool IsPaused { get { return coroutineWrapper.Paused; } }
 
-	public Coroutine coroutine { get { return coroutineWrapper.InternalCoroutine; } }
+	public Coroutine Coroutine { get { return coroutineWrapper.InternalCoroutine; } }
 
 
 	/// Creates a new Task object for the given coroutine.
@@ -63,13 +63,13 @@ public class Routine
 
 	internal void OnException(Exception e)
 	{
-		if (ExceptionHandler != null) ExceptionHandler(e);
+		if (exceptionHandler != null) exceptionHandler(e);
 		else Debug.LogError(e);
 	}
 
 	void TaskFinished(bool manual)
 	{
-		FinishedHandler handler = Finished;
+		FinishedHandler handler = finished;
 		if (handler != null)
 			handler(manual);
 	}

@@ -7,6 +7,8 @@ namespace TankGame.Flow
 	public interface IFlow
 	{
 		IEnumerator Flow();
+		void Entered();
+		void Ended();
 	}
 
 }

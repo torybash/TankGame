@@ -12,6 +12,7 @@ namespace TankGame.Flow
 			this.flow = flow;
 			routine = new Routine();
 			routine.Start(flow.Flow());
+			flow.Entered();
 		}
 	}
 

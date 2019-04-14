@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TankGame.Databases;
 using TankGame.Flow;
+using TankGame.Game;
 using TankGame.MainMenu;
 using TankGame.Screen;
 using TankGame.Views;
@@ -12,6 +13,8 @@ namespace TankGame
 {
 	public class Boot : MonoBehaviour
 	{
+		[SerializeField] private DatabaseHelper databaseHelper;
+
 		void Start()
 		{
 			BootGame();
@@ -20,14 +23,18 @@ namespace TankGame
 		private void BootGame()
 		{
 			//Setup controllers, databases, flow-stack etc.
-			var viewDatabase = Database.Get<ViewDatabase>();
-
-			var viewFactory = new ViewFactory(viewDatabase);
+			var viewDatabase = databaseHelper.Get<ViewDatabase>();
+			var viewController = new ViewController(viewDatabase);
 
 			var screenController = new ScreenController();
 			var flowStack = new FlowStack(screenController);
 
-			var mainMenuControllerFactory = new MainMenuControllerFactory(flowStack, viewFactory);
+			var tankDatabase = databaseHelper.Get<TankDatabase>();
+			var crewDatabase = databaseHelper.Get<CrewDatabase>();
+			var gameControllerFactory = new GameControllerFactory(flowStack, viewController, tankDatabase, crewDatabase);
+			var mainMenuControllerFactory = new MainMenuControllerFactory(flowStack, viewController, gameControllerFactory);
+
+			//var settingsPanelLifecycleHandler = new SettingsPanelLifecycleHandler();
 
 			//Start Flow
 			var menuFlow = new MainMenuFlow(mainMenuControllerFactory);

@@ -2,9 +2,11 @@
 using System.Collections;
 using TankGame.Views;
 using System;
+using TankGame.Lifecycles;
 
 namespace TankGame.MainMenu
 {
+	//public class SettingsPanel : Lifecycle<SettingsPanelLifecycleHandler>
 	public class SettingsView : View
 	{
 		public event Action OnBack = delegate { };

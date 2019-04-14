@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace TankGame.Databases
@@ -7,9 +9,9 @@ namespace TankGame.Databases
 	{
 		private static DatabaseHelper instance;
 
-		[SerializeField] private Database[] databases;
+		[SerializeField] private List<Database> databases;
 
-		public Database[] Databases {
+		public List<Database> Databases {
 			get { return databases; }
 		}
 
@@ -32,7 +34,23 @@ namespace TankGame.Databases
 
 		private void UpdateDatabaseReferences()
 		{
-			databases = Resources.FindObjectsOfTypeAll<Database>();
+			databases = Resources.FindObjectsOfTypeAll<Database>().ToList();
+		}
+
+		public T Get<T>() where T : Database
+		{
+			var instance = databases.FirstOrDefault(x => x.GetType() == typeof(T));
+			if (instance == null)
+			{
+				var databases = FindObjectOfType<DatabaseHelper>().Databases;
+				instance = databases.FirstOrDefault(x => x.GetType() == typeof(T));
+
+				if (instance != null)
+				{
+					databases.Add(instance);
+				}
+			}
+			return (T)instance;
 		}
 	}
 }

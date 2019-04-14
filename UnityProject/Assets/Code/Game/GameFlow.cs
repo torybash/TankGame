@@ -7,9 +7,29 @@ namespace TankGame.Game
 {
 	public class GameFlow : IFlow
 	{
+		private GameControllerFactory gameControllerFactory;
+
+		public GameFlow(GameControllerFactory gameControllerFactory)
+		{
+			this.gameControllerFactory = gameControllerFactory;
+		}
+
+		public void Entered()
+		{
+
+		}
+
+		public void Ended()
+		{
+
+		}
+
 		public IEnumerator Flow()
 		{
-			throw new System.NotImplementedException();
+			var game = gameControllerFactory.GetGame();
+
+			yield return game.Run();
+
 		}
 
 	}

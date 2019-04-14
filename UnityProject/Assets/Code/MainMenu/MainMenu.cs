@@ -9,40 +9,36 @@ namespace TankGame.MainMenu
 {
 	public class MainMenu
 	{
-		private readonly ViewFactory viewFactory;
+		private readonly ViewController viewController;
+		private readonly GameControllerFactory gameControllerFactory;
 
 		private FlowStack flowStack;
 
-		private MainMenuView mainMenuView;
-
-		public MainMenu(FlowStack flowStack, ViewFactory viewFactory)
+		public MainMenu(FlowStack flowStack, ViewController viewController, GameControllerFactory gameControllerFactory)
 		{
 			this.flowStack = flowStack;
-			this.viewFactory = viewFactory;
+			this.viewController = viewController;
+			this.gameControllerFactory = gameControllerFactory;
 		}
 
-		public IEnumerator Run()
+		public void Run()
 		{
-			mainMenuView = viewFactory.GetView<MainMenuView>();
+			var mainMenuView = viewController.ShowView<MainMenuView>();
 			mainMenuView.OnStart += OnStart;
 			mainMenuView.OnSettings += OnSettings;
 			mainMenuView.OnQuit += OnQuit;
-			
-			while (mainMenuView.IsVisible())
-			{
-				yield return null;
-			}
 		}
 
 		private void OnStart()
 		{
-			var gameFlow = new GameFlow();
+			var gameFlow = new GameFlow(gameControllerFactory);
 			flowStack.Push(gameFlow);
 		}
 
 		private void OnSettings()
 		{
-
+			var settingsView = viewController.ShowView<SettingsView>();
+			settingsView.OnBack += settingsView.Close;
 		}
 
 		private void OnQuit()

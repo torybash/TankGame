@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TankGame.Screen;
 
 namespace TankGame.Flow
@@ -21,10 +19,11 @@ namespace TankGame.Flow
 			{
 				var currentFlow = flows.Peek();
 				currentFlow.routine.Pause();
+				currentFlow.flow.Ended();
 			}
 			var flowRoutine = new FlowRoutine(flow);
 			flows.Push(flowRoutine);
-			flowRoutine.routine.Finished += FlowFinished;
+			flowRoutine.routine.finished += FlowFinished;
 		}
 
 		private void FlowFinished(bool manual)
@@ -34,6 +33,7 @@ namespace TankGame.Flow
 			{
 				var previousFlow = flows.Peek();
 				previousFlow.routine.Unpause();
+				previousFlow.flow.Entered();
 			}
 		}
 
