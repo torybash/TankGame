@@ -14,6 +14,7 @@ namespace TankGame.Game
 		private ActiveCardsPanel activeCardsPanel; //TODO Should have controller for each instance 
 
 		private ViewController viewController;
+		public event Action<CardPanel> OnReleasedOnCard;
 
 		public ActiveCardsPanelLifecycleHandler(ViewController viewController)
 		{
@@ -33,7 +34,21 @@ namespace TankGame.Game
 		public IEnumerator AnimateDealCards(List<CardData> cards)
 		{
 			yield return activeCardsPanel.AnimateDealCards(cards);
+
+			foreach (var card in cards)
+			{
+				activeCardsPanel.RegisterMouseUp(card, OnReleasedOnCard);
+			}
 		}
 
+		public void UpdateActiveCards(List<CardData> cards)
+		{
+			activeCardsPanel.UpdateActiveCards(cards);
+
+			foreach (var card in cards)
+			{
+				activeCardsPanel.RegisterMouseUp(card, OnReleasedOnCard);
+			}
+		}
 	}
 }

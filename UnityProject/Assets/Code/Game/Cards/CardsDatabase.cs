@@ -33,7 +33,12 @@ namespace TankGame.Game
 			for (int i = 0; i < count; i++)
 			{
 				var card = cardsWithDuplicates.OrderBy(x => Random.Range(0, int.MaxValue)).FirstOrDefault();
-				randomCards.Add(card);
+				randomCards.Add((CardData)card.Clone());
+			}
+
+			foreach (var card in randomCards)
+			{
+				card.Initialize();
 			}
 			return randomCards;
 		}

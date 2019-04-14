@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TankGame.Game
 {
@@ -8,6 +9,7 @@ namespace TankGame.Game
 		public TankPart tankPart;
 		public int maxHealth;
 		public int health;
+		public List<string> abilityIds;
 
 		public object Clone()
 		{
@@ -15,7 +17,8 @@ namespace TankGame.Game
 			{
 				tankPart = tankPart,
 				maxHealth = maxHealth,
-				health = health
+				health = health,
+				abilityIds = abilityIds.Clone()
 			};
 		}
 	}

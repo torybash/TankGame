@@ -1,16 +1,13 @@
 ﻿using System.Collections.Generic;
-using TankGame.Screen;
 
 namespace TankGame.Flow
 {
 	public class FlowStack
 	{
-		private readonly ScreenController screenController;
 		private Stack<FlowRoutine> flows = new Stack<FlowRoutine>();
 
-		public FlowStack(ScreenController screenController)
+		public FlowStack()
 		{
-			this.screenController = screenController;
 		}
 
 		public void Push(IFlow flow)

@@ -14,8 +14,19 @@ namespace TankGame.Game
 		[SerializeField] private Text destroyEffectText;
 		[SerializeField] private Text endTurnEffectText;
 
-		internal void Initialize(CardData card)
+		public CardData Card { get; private set; }
+
+		public event Action OnMouseUp = delegate { };
+
+		public void OnMouseUpTriggered()
 		{
+			Debug.Log("OnMouseUp");
+			OnMouseUp();
+		}
+
+		public void Initialize(CardData card)
+		{
+			Card = card;
 			cardNameText.text = card.displayName;
 			destroyCostText.text = card.powerCost.powerType.ToString()[0] + card.powerCost.cost.ToString();
 			cardImage.sprite = card.sprite;

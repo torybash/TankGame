@@ -5,7 +5,6 @@ using TankGame.Databases;
 using TankGame.Flow;
 using TankGame.Game;
 using TankGame.MainMenu;
-using TankGame.Screen;
 using TankGame.Views;
 using UnityEngine;
 
@@ -26,14 +25,17 @@ namespace TankGame
 			var viewDatabase = databaseHelper.Get<ViewDatabase>();
 			var viewController = new ViewController(viewDatabase);
 
-			var screenController = new ScreenController();
-			var flowStack = new FlowStack(screenController);
+			var flowStack = new FlowStack();
 
 
 			var tankDatabase = databaseHelper.Get<TankDatabase>();
 			var crewDatabase = databaseHelper.Get<CrewDatabase>();
 			var cardsDatabase = databaseHelper.Get<CardsDatabase>();
-			var gameControllerFactory = new GameControllerFactory(flowStack, viewController, tankDatabase, crewDatabase, cardsDatabase);
+			var activeCardsPanelLifecycleHandler = new ActiveCardsPanelLifecycleHandler(viewController);
+			var abilitiesPanelLifecycleHandler = new AbilitiesPanelLifecycleHandler(tankDatabase);
+			var tankPanelLifecycleHandler = new TankPanelLifecycleHandler();
+			var battleHUD = new BattleHUD(viewController, activeCardsPanelLifecycleHandler, abilitiesPanelLifecycleHandler, tankPanelLifecycleHandler);
+			var gameControllerFactory = new GameControllerFactory(flowStack, viewController, battleHUD, tankDatabase, crewDatabase, cardsDatabase);
 			var mainMenuControllerFactory = new MainMenuControllerFactory(flowStack, viewController, gameControllerFactory);
 
 

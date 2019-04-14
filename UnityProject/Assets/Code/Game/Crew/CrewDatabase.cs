@@ -21,13 +21,13 @@ namespace TankGame.Game
 		public List<CrewMemberState> GetCrew(string crewId)
 		{
 			var crewDefinition = crewDefinitions.FirstOrDefault(x => x.crewId == crewId);
-			var crewMemberState = new List<CrewMemberState>();
+			var crew = new List<CrewMemberState>();
 			foreach (var memberId in crewDefinition.memberIds)
 			{
 				var crewMember = GetCrewMemberState(memberId);
-				crewMemberStates.Add(crewMember);
+				crew.Add(crewMember);
 			}
-			return crewMemberStates;
+			return crew;
 		}
 	}
 }

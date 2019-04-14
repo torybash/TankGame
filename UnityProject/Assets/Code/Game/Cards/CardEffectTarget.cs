@@ -7,6 +7,7 @@ namespace TankGame.Game
 	{
 		PLAYER_TANK,
 		TANK_PART,
-		RANDOM_TANK_PART
+		RANDOM_TANK_PART,
+		NONE,
 	}
 }

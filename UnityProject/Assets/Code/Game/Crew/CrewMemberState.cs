@@ -9,6 +9,8 @@ namespace TankGame.Game
 		public int maxFatigue;
 		public int fatigue;
 
+		public bool HasActed { get; set; }
+		public TankPart TankPart { get; set; }
 
 		public object Clone()
 		{

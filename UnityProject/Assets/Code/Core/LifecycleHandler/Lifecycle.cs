@@ -3,11 +3,11 @@ using System.Collections;
 
 namespace TankGame.Lifecycles
 {
-	public class Lifecycle<T> : MonoBehaviour, ILifecycle
+	public abstract class Lifecycle<T> : MonoBehaviour, ILifecycle
 	{
 
 
-		private void Awake()
+		protected virtual void Awake()
 		{
 			LifecycleHandlerHelper.Awake(this);
 		}

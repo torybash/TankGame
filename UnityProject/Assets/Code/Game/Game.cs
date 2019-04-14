@@ -64,6 +64,11 @@ namespace TankGame.Game
 				tankState = tankDatabase.GetTankState("Test"),
 				crewMemberStates = crewDatabase.GetCrew("Test")
 			};
+			for (int i = 0; i < testState.tankState.tankPartStates.Count; i++)
+			{
+				var partState = testState.tankState.tankPartStates[i];
+				testState.crewMemberStates[i].TankPart = partState.tankPart;
+			}
 			return testState;
 		}
 

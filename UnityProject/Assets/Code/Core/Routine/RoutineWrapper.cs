@@ -18,18 +18,17 @@ public class RoutineWrapper
 	public bool Running { get; private set; } 
 	public bool Paused { get; private set; }
 	public Coroutine InternalCoroutine { get; private set; }
+	public IEnumerator enumerator { get; set; }
 
 	public delegate void FinishedHandler(bool manual);
 	public event FinishedHandler Finished;
 
-	private IEnumerator enumerator;
 	private bool stopped;
 
 	private Routine routine;
 
-	public RoutineWrapper(IEnumerator enumerator, Routine routine)
+	public RoutineWrapper(Routine routine)
 	{
-		this.enumerator = enumerator;
 		this.routine = routine;
 	}
 

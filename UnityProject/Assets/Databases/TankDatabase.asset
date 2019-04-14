@@ -19,12 +19,41 @@ MonoBehaviour:
     - tankPart: 0
       maxHealth: 3
       health: 3
+      abilityIds:
+      - Drive
     - tankPart: 1
       maxHealth: 3
       health: 3
+      abilityIds:
+      - FireCannon
     - tankPart: 2
       maxHealth: 2
       health: 2
+      abilityIds:
+      - FireMachineGun
     - tankPart: 3
       maxHealth: 2
       health: 2
+      abilityIds:
+      - Scan
+  tankAbilities:
+  - id: Drive
+    power:
+      powerType: 0
+      cost: 3
+    fatigueDamage: 1
+  - id: FireCannon
+    power:
+      powerType: 1
+      cost: 3
+    fatigueDamage: 3
+  - id: FireMachineGun
+    power:
+      powerType: 1
+      cost: 2
+    fatigueDamage: 2
+  - id: Scan
+    power:
+      powerType: 2
+      cost: 2
+    fatigueDamage: 2

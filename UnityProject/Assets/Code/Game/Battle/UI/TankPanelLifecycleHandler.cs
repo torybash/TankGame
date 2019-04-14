@@ -5,9 +5,11 @@ namespace TankGame.Game
 {
 	public class TankPanelLifecycleHandler : LifecycleHandler<TankPanel>
 	{
+		private TankPanel tankPanel; //TODO Should have controller for each instance 
+
 		public override void InstanceAwake(TankPanel instance)
 		{
-			//throw new System.NotImplementedException();
+			tankPanel = instance;
 		}
 
 		internal void Initialize(BattleState battleState)

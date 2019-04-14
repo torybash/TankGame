@@ -35,13 +35,14 @@ public class Routine
 	public Routine()
 	{
 		RoutineWrapper.Init();
+		coroutineWrapper = new RoutineWrapper(this);
+		coroutineWrapper.Finished += TaskFinished;
 	}
 
 	/// Begins execution of the coroutine
 	public void Start(IEnumerator enumerator)
 	{
-		coroutineWrapper = new RoutineWrapper(enumerator, this);
-		coroutineWrapper.Finished += TaskFinished;
+		coroutineWrapper.enumerator = enumerator;
 		coroutineWrapper.Start();
 	}
 

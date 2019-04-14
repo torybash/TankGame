@@ -9,6 +9,7 @@ namespace TankGame.Game
 	{
 		public string id;
 		public int hullHp;
+		public int maxHp;
 		public List<TankPartState> tankPartStates;
 
 		public object Clone()
@@ -16,6 +17,7 @@ namespace TankGame.Game
 			return new TankState
 			{
 				id = id,
+				maxHp = maxHp,
 				hullHp = hullHp,
 				tankPartStates = tankPartStates.Clone()
 			};
