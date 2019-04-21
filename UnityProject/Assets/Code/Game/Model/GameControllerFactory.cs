@@ -25,9 +25,10 @@ namespace TankGame.Game
 			this.cardsDatabase = cardsDatabase;
 		}
 
-		public Game GetGame()
+
+		public WorldMap GetWorldMap()
 		{
-			var game = new Game(viewController, this, tankDatabase, crewDatabase, cardsDatabase, flowStack);
+			var game = new WorldMap(viewController, this, tankDatabase, crewDatabase, cardsDatabase, flowStack);
 			return game;
 		}
 

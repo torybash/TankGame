@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace TankGame.Game
 {
-	public class Game
+	public class WorldMap
 	{
 		private readonly ViewController viewController;
 		private readonly GameControllerFactory gameControllerFactory;
@@ -17,9 +17,9 @@ namespace TankGame.Game
 		private readonly FlowStack flowStack;
 		private GameState gameState;
 
-		public bool IsPlaying { get; private set; }
+		public bool IsSelectingDestination { get; private set; }
 
-		public Game(ViewController viewController, GameControllerFactory gameControllerFactory, TankDatabase tankDatabase, CrewDatabase crewDatabase, CardsDatabase cardsDatabase, FlowStack flowStack)
+		public WorldMap(ViewController viewController, GameControllerFactory gameControllerFactory, TankDatabase tankDatabase, CrewDatabase crewDatabase, CardsDatabase cardsDatabase, FlowStack flowStack)
 		{
 			this.viewController = viewController;
 			this.gameControllerFactory = gameControllerFactory;
@@ -29,19 +29,14 @@ namespace TankGame.Game
 			this.flowStack = flowStack;
 		}
 
-		public IEnumerator Run()
+		public void Run()
 		{
-			IsPlaying = true;
+			IsSelectingDestination = true;
 
 			gameState = DEBUG_GetTestState();
 
 			var mapView = viewController.ShowView<WorldMapView>();
 			mapView.OnDestinationSelected += OnDestinationSelected;
-
-			while (mapView.IsVisible())
-			{
-				yield return null;
-			}
 		}
 
 		private void OnDestinationSelected(string destinationId)
@@ -50,6 +45,8 @@ namespace TankGame.Game
 
 			var battleFlow = new BattleFlow(gameControllerFactory, battleState);
 			flowStack.Push(battleFlow);
+
+			IsSelectingDestination = false;
 		}
 
 		private GameState DEBUG_GetTestState()

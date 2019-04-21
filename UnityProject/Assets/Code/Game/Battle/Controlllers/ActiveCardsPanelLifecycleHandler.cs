@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using TankGame.Lifecycles;
 using TankGame.Views;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace TankGame.Game
 {
@@ -14,6 +11,8 @@ namespace TankGame.Game
 
 		private ViewController viewController;
 		public event Action<CardPanel> OnReleasedOnCard;
+
+		private Routine routine = new Routine();
 
 		public ActiveCardsPanelLifecycleHandler(ViewController viewController)
 		{
@@ -30,9 +29,14 @@ namespace TankGame.Game
 			activeCardsPanel.UpdateDeckSize(battleState.deck.Count);
 		}
 
-		public IEnumerator AnimateDealCards(BattleState battleState)
+		public void AnimateDealCards(BattleState battleState, Action onComplete)
 		{
-			yield return activeCardsPanel.AnimateDealCards(battleState.activeCards);
+			routine = new Routine();
+			routine.Start(
+				activeCardsPanel.AnimateDealCards(battleState.activeCards)
+			);
+
+			routine.OnComplete += onComplete;
 		}
 
 		public void UpdateActiveCards(BattleState battleState)

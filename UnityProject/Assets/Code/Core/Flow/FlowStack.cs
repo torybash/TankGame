@@ -20,10 +20,10 @@ namespace TankGame.Flow
 			}
 			var flowRoutine = new FlowRoutine(flow);
 			flows.Push(flowRoutine);
-			flowRoutine.routine.finished += FlowFinished;
+			flowRoutine.routine.OnComplete += FlowFinished;
 		}
 
-		private void FlowFinished(bool manual)
+		private void FlowFinished()
 		{
 			flows.Pop();
 			if (flows.Count > 0)

@@ -15,6 +15,15 @@ namespace TankGame.Databases
 			get { return databases; }
 		}
 
+#if UNITY_EDITOR
+		public static DatabaseHelper Instance {
+			get {
+				if (instance == null) Initialize();
+				return instance;
+			}
+		}
+#endif
+
 		[InitializeOnLoadMethod]
 		private static void Initialize()
 		{

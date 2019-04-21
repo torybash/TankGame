@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,12 @@ namespace TankGame.Game
 		private readonly DragAndDropArrowController dragAndDropArrow;
 
 		public event Action OnEndTurn = delegate { };
-		public event Action<TankSectionAbility, CardPanel> OnResolveAbility = delegate { };
+		public event Action<TankAbility, CardData> OnResolveAbility = delegate { };
 
-		private Routine dragAndDropRoutine = new Routine();
 		private BattleState battleState;
 
-		private CardPanel card; //TODO Should be stored inside routine/class instead!
+		private TankAbility pressedAbility; //TODO This should not be stored here!
+
 
 		public BattleHUD(ViewController viewController, ActiveCardsPanelLifecycleHandler activeCardsPanelLifecycleHandler, AbilitiesPanelLifecycleHandler abilitiesPanelLifecycleHandler, TankPanelLifecycleHandler tankPanelLifecycleHandler, DragAndDropArrowController dragAndDropArrow)
 		{
@@ -56,35 +57,12 @@ namespace TankGame.Game
 
 		private void OnPressedAbility(TankSectionAbility ability)
 		{
-			if (CanUseAbility(ability))
+			if (battleState.CanUseAbility())
 			{
-				dragAndDropRoutine.Start(DragAndDropAbilty(ability));
+				dragAndDropArrow.StartDrag(ability.CenterPosition);
+				pressedAbility = ability.TankAbility;
+
 			}
-		}
-
-		private IEnumerator DragAndDropAbilty(TankSectionAbility ability)
-		{
-			card = null;
-
-			dragAndDropArrow.StartedDrag(ability.CenterPosition);
-
-			while (Input.GetMouseButton(0) || card != null)
-			{
-				var viewCamera = viewController.GetViewCamera();
-				var mouseWorldPosition = viewCamera.ScreenToWorldPoint(Input.mousePosition);
-				dragAndDropArrow.UpdateDrag(mouseWorldPosition);
-
-				if (CanTargetCard(ability, card))
-				{
-					OnResolveAbility(ability, card);
-					card = null;
-				}
-				if (card != null) break;
-				
-				yield return null;
-			}
-
-			dragAndDropArrow.EndedDrag();
 		}
 
 		private void OnHoverAbility(TankSectionAbility ability)
@@ -94,41 +72,26 @@ namespace TankGame.Game
 
 		private void OnReleasedOnCard(CardPanel card)
 		{
-			this.card = card;
-			//Debug.Log("OnReleasedOnCard - card: " + card.Card.id + ", guid: " + card.Card.Guid);
+			if (battleState.CanTargetCard(pressedAbility, card.Card))
+			{
+				OnResolveAbility(pressedAbility, card.Card);
+			}
 		}
 
-		public IEnumerator AnimateStartOfRound(BattleState battleState)
+		public void ResolveAbility(TankAbility ability, CardData card, Action onComplete)
 		{
-			yield return activeCardsPanelLifecycleHandler.AnimateDealCards(battleState);
+			//UpdateHUD();
+			onComplete();
+		}
 
+		public void AnimateStartOfRound(Action onComplete)
+		{
+			activeCardsPanelLifecycleHandler.AnimateDealCards(battleState, onComplete);
+		}
+
+		public void AnimateEndOfRound()
+		{
 			UpdateHUD();
-		}
-
-		public IEnumerator AnimateEndOfRound(BattleState battleState)
-		{
-			UpdateHUD();
-
-			yield break;
-		}
-
-		private bool CanUseAbility(TankSectionAbility ability)
-		{
-			if (dragAndDropRoutine.IsRunning) return false;
-			if (battleState.battlePhase != BattlePhase.PLAYER_ACTION) return false;
-
-			return true;
-		}
-
-		private bool CanTargetCard(TankSectionAbility ability, CardPanel card)
-		{
-			if (card == null) return false;
-			if (battleState.battlePhase != BattlePhase.PLAYER_ACTION) return false;
-			if (ability.TankAbility.power.powerType != card.Card.powerCost.powerType) return false;
-			if (ability.TankAbility.power.cost < card.Card.powerCost.cost) return false;
-			var crewMember = battleState.gameState.crewMemberStates.FirstOrDefault(x => x.TankPart == ability.TankAbility.TankPart);
-			if (crewMember == null || crewMember.HasActed) return false;
-			return true;
 		}
 	}
 }

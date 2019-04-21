@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class RoutineWrapper
@@ -20,8 +21,7 @@ public class RoutineWrapper
 	public Coroutine InternalCoroutine { get; private set; }
 	public IEnumerator enumerator { get; set; }
 
-	public delegate void FinishedHandler(bool manual);
-	public event FinishedHandler Finished;
+	public event Action OnComplete = delegate { };
 
 	private bool stopped;
 
@@ -76,7 +76,7 @@ public class RoutineWrapper
 					try
 					{
 						yieldNextSucess = current.MoveNext();
-					} catch (System.Exception err)
+					} catch (Exception err)
 					{
 						routine.OnException(err);
 					}
@@ -93,8 +93,7 @@ public class RoutineWrapper
 			}
 		}
 
-		var finishedFandler = Finished;
-		if (finishedFandler != null) finishedFandler(stopped);
+		OnComplete();
 
 		InternalCoroutine = null;
 	}

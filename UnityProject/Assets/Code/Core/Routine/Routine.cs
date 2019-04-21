@@ -6,26 +6,28 @@ using UnityEngine;
 
 public class Routine
 {
-	/// Delegate for termination subscribers.  manual is true if and only if
-	/// the coroutine was stopped with an explicit call to Stop().
-	public delegate void FinishedHandler(bool manual);
-
 	/// Termination event.  Triggered when the coroutine completes execution.
-	public event FinishedHandler finished;
+	public event Action OnComplete = delegate { };
 
 	/// Exception handler
-	public event Action<Exception> exceptionHandler;
+	public event Action<Exception> ExceptionHandler = delegate { };
 
 	/// Internal coroutine wrapper
 	private RoutineWrapper coroutineWrapper;
 
 	/// Returns true if and only if the coroutine is running.  Paused tasks
 	/// are considered to be running.
-	public bool IsRunning { get { return coroutineWrapper.Running; } }
+	public bool IsRunning {
+		get { return coroutineWrapper.Running; }
+	}
 	/// Returns true if and only if the coroutine is currently paused.
-	public bool IsPaused { get { return coroutineWrapper.Paused; } }
+	public bool IsPaused {
+		get { return coroutineWrapper.Paused; }
+	}
 
-	public Coroutine Coroutine { get { return coroutineWrapper.InternalCoroutine; } }
+	public Coroutine Coroutine {
+		get { return coroutineWrapper.InternalCoroutine; }
+	}
 
 
 	/// Creates a new Task object for the given coroutine.
@@ -36,7 +38,7 @@ public class Routine
 	{
 		RoutineWrapper.Init();
 		coroutineWrapper = new RoutineWrapper(this);
-		coroutineWrapper.Finished += TaskFinished;
+		coroutineWrapper.OnComplete += Completed;
 	}
 
 	/// Begins execution of the coroutine
@@ -62,16 +64,15 @@ public class Routine
 		coroutineWrapper.Unpause();
 	}
 
+	private void Completed()
+	{
+		OnComplete();
+	}
+
 	internal void OnException(Exception e)
 	{
-		if (exceptionHandler != null) exceptionHandler(e);
+		if (ExceptionHandler != null) ExceptionHandler(e);
 		else Debug.LogError(e);
 	}
 
-	void TaskFinished(bool manual)
-	{
-		FinishedHandler handler = finished;
-		if (handler != null)
-			handler(manual);
-	}
 }

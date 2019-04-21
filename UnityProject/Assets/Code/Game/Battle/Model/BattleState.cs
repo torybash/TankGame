@@ -76,6 +76,23 @@ namespace TankGame.Game
 			gameState.tankState.hullHp = Mathf.Clamp(gameState.tankState.hullHp + healthChange, 0, gameState.tankState.maxHp);
 		}
 
+		public bool CanUseAbility()
+		{
+			if (battlePhase != BattlePhase.PLAYER_ACTION) return false;
+
+			return true;
+		}
+
+		public bool CanTargetCard(TankAbility ability, CardData card)
+		{
+			if (battlePhase != BattlePhase.PLAYER_ACTION) return false;
+			if (ability.power.powerType != card.powerCost.powerType) return false;
+			if (ability.power.cost < card.powerCost.cost) return false;
+			var crewMember = gameState.crewMemberStates.FirstOrDefault(x => x.TankPart == ability.TankPart);
+			if (crewMember == null || crewMember.HasActed) return false;
+			return true;
+		}
+
 		public void SpentSectionTurn(TankAbility tankAbility)
 		{
 			var crewMember = gameState.crewMemberStates.FirstOrDefault(x => x.TankPart == tankAbility.TankPart);

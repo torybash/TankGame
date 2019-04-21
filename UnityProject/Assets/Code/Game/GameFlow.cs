@@ -7,7 +7,9 @@ namespace TankGame.Game
 {
 	public class GameFlow : IFlow
 	{
-		private GameControllerFactory gameControllerFactory;
+		private readonly GameControllerFactory gameControllerFactory;
+
+		private WorldMap worldMap;
 
 		public GameFlow(GameControllerFactory gameControllerFactory)
 		{
@@ -16,7 +18,8 @@ namespace TankGame.Game
 
 		public void Entered()
 		{
-
+			worldMap = gameControllerFactory.GetWorldMap();
+			worldMap.Run();
 		}
 
 		public void Ended()
@@ -26,10 +29,11 @@ namespace TankGame.Game
 
 		public IEnumerator Flow()
 		{
-			var game = gameControllerFactory.GetGame();
-
-			yield return game.Run();
-
+			//
+			while (worldMap.IsSelectingDestination)
+			{
+				yield return null;
+			}
 		}
 
 	}
