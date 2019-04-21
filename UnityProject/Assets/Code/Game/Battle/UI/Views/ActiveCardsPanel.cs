@@ -47,7 +47,7 @@ namespace TankGame.Game
 			{
 				var card = cards[i];
 				var cardPanel = Instantiate(cardPanelPrefab, transform);
-				cardPanel.Initialize(card);
+				cardPanel.Initialize(card); 
 				cardPanel.transform.position = cardPositions[i].position;
 				activeCardPanels.Add(cardPanel);
 			}

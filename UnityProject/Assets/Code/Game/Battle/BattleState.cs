@@ -16,19 +16,12 @@ namespace TankGame.Game
 
 		public void DealCards()
 		{
-			foreach (var item in deck)
-			{
-				Debug.Log("deck card guid: " + item.Guid);
-
-			}
-
 			while (activeCards.Count < 5 && deck.Count > 0)
 			{
 				var card = deck[deck.Count - 1];
 				deck.RemoveAt(deck.Count - 1);
 
 				activeCards.Add(card);
-				Debug.Log("activeCard added guid: " + card.Guid);
 			}
 		}
 

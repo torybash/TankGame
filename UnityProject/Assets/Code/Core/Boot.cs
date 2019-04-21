@@ -21,25 +21,26 @@ namespace TankGame
 
 		private void BootGame()
 		{
-			//Setup controllers, databases, flow-stack etc.
+			//Setting up controllers, databases, flow-stack etc.
+
+			//Core functionality
 			var viewDatabase = databaseHelper.Get<ViewDatabase>();
 			var viewController = new ViewController(viewDatabase);
-
 			var flowStack = new FlowStack();
 
-
+			//Game, map, battle
 			var tankDatabase = databaseHelper.Get<TankDatabase>();
 			var crewDatabase = databaseHelper.Get<CrewDatabase>();
 			var cardsDatabase = databaseHelper.Get<CardsDatabase>();
 			var activeCardsPanelLifecycleHandler = new ActiveCardsPanelLifecycleHandler(viewController);
 			var abilitiesPanelLifecycleHandler = new AbilitiesPanelLifecycleHandler(tankDatabase);
 			var tankPanelLifecycleHandler = new TankPanelLifecycleHandler();
-			var battleHUD = new BattleHUD(viewController, activeCardsPanelLifecycleHandler, abilitiesPanelLifecycleHandler, tankPanelLifecycleHandler);
+			var dragAndDropArrow = new DragAndDropArrowController(viewController);
+			var battleHUD = new BattleHUD(viewController, activeCardsPanelLifecycleHandler, abilitiesPanelLifecycleHandler, tankPanelLifecycleHandler, dragAndDropArrow);
 			var gameControllerFactory = new GameControllerFactory(flowStack, viewController, battleHUD, tankDatabase, crewDatabase, cardsDatabase);
+
+			//Main menu
 			var mainMenuControllerFactory = new MainMenuControllerFactory(flowStack, viewController, gameControllerFactory);
-
-
-			//var settingsPanelLifecycleHandler = new SettingsPanelLifecycleHandler();
 
 			//Start Flow
 			var menuFlow = new MainMenuFlow(mainMenuControllerFactory);

@@ -17,3 +17,5 @@ MonoBehaviour:
   - {fileID: 6954676757310395183, guid: 22d641bc977a97d488dab2ba806a6414, type: 3}
   - {fileID: 3182892644658713552, guid: 218336ccbfa5a2842b25e2c0f29b67f1, type: 3}
   - {fileID: 775172445235764906, guid: 6a079f5cdcb5afb4cb4051bb92d28470, type: 3}
+  viewComponents:
+  - {fileID: 8186731086460330655, guid: b1ac29031e59c4a458b63340ef7d35c3, type: 3}

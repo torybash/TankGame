@@ -20,7 +20,6 @@ namespace TankGame.Game
 
 		public void OnMouseUpTriggered()
 		{
-			Debug.Log("OnMouseUp");
 			OnMouseUp();
 		}
 
@@ -28,7 +27,7 @@ namespace TankGame.Game
 		{
 			Card = card;
 			cardNameText.text = card.displayName;
-			destroyCostText.text = card.powerCost.powerType.ToString()[0] + card.powerCost.cost.ToString();
+			destroyCostText.text = card.powerCost.GetDescription();
 			cardImage.sprite = card.sprite;
 			destroyEffectText.text = card.destroyEffect.GetDescription(CardEffectType.ON_DESTROY);
 			endTurnEffectText.text = card.endTurnEffect.GetDescription(CardEffectType.ON_END_TURN);

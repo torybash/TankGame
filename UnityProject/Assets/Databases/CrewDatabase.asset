@@ -25,6 +25,222 @@ MonoBehaviour:
   - memberId: Captain
     maxFatigue: 10
     fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 3
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 6
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 6
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Driver
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Gunner
+    maxFatigue: 10
+    fatigue: 10
+  - memberId: MachineGunner
+    maxFatigue: 10
+    fatigue: 0
+  - memberId: Captain
+    maxFatigue: 10
+    fatigue: 0
   crewDefinitions:
   - crewId: Test
     memberIds:

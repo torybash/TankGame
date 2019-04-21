@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
+using UnityEngine;
 
 namespace TankGame.Views
 {
@@ -10,6 +9,9 @@ namespace TankGame.Views
 
 		[SerializeField] private Camera cam;
 
+		public Camera Camera {
+			get { return cam; }
+		}
 
 		public void SetCameraDepth(int depth)
 		{

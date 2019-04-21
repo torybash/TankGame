@@ -13,6 +13,7 @@ namespace TankGame.Game
 		private readonly ActiveCardsPanelLifecycleHandler activeCardsPanelLifecycleHandler;
 		private readonly AbilitiesPanelLifecycleHandler abilitiesPanelLifecycleHandler;
 		private readonly TankPanelLifecycleHandler tankPanelLifecycleHandler;
+		private readonly DragAndDropArrowController dragAndDropArrow;
 
 		public event Action OnEndTurn = delegate { };
 		public event Action<TankSectionAbility, CardPanel> OnResolveAbility = delegate { };
@@ -22,12 +23,13 @@ namespace TankGame.Game
 
 		private CardPanel card; //TODO Should be stored inside routine/class instead!
 
-		public BattleHUD(ViewController viewController, ActiveCardsPanelLifecycleHandler activeCardsPanelLifecycleHandler, AbilitiesPanelLifecycleHandler abilitiesPanelLifecycleHandler, TankPanelLifecycleHandler tankPanelLifecycleHandler)
+		public BattleHUD(ViewController viewController, ActiveCardsPanelLifecycleHandler activeCardsPanelLifecycleHandler, AbilitiesPanelLifecycleHandler abilitiesPanelLifecycleHandler, TankPanelLifecycleHandler tankPanelLifecycleHandler, DragAndDropArrowController dragAndDropArrow)
 		{
 			this.viewController = viewController;
 			this.activeCardsPanelLifecycleHandler = activeCardsPanelLifecycleHandler;
 			this.abilitiesPanelLifecycleHandler = abilitiesPanelLifecycleHandler;
 			this.tankPanelLifecycleHandler = tankPanelLifecycleHandler;
+			this.dragAndDropArrow = dragAndDropArrow;
 		}
 
 		public void Run(BattleState battleState)
@@ -63,8 +65,14 @@ namespace TankGame.Game
 		{
 			card = null;
 
+			dragAndDropArrow.StartedDrag(ability.CenterPosition);
+
 			while (Input.GetMouseButton(0) || card != null)
 			{
+				var viewCamera = viewController.GetViewCamera();
+				var mouseWorldPosition = viewCamera.ScreenToWorldPoint(Input.mousePosition);
+				dragAndDropArrow.UpdateDrag(mouseWorldPosition);
+
 				if (CanTargetCard(ability, card))
 				{
 					OnResolveAbility(ability, card);
@@ -75,6 +83,7 @@ namespace TankGame.Game
 				yield return null;
 			}
 
+			dragAndDropArrow.EndedDrag();
 		}
 
 		private void OnHoverAbility(TankSectionAbility ability)

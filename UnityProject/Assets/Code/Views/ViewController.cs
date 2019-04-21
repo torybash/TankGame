@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace TankGame.Views
 {
@@ -9,13 +11,19 @@ namespace TankGame.Views
 
 		private readonly List<View> viewStack = new List<View>();
 
+		private View CurrentView {
+			get {
+				if (viewStack.Count == 0) return null;
+				return viewStack[viewStack.Count - 1];
+			}
+		}
 
 		public ViewController(ViewDatabase viewDatabase)
 		{
 			this.viewDatabase = viewDatabase;
 		}
 
-		internal T ShowView<T>() where T : View
+		public T ShowView<T>() where T : View
 		{
 			var prefab = viewDatabase.GetViewPrefab<T>();
 			if (prefab != null)
@@ -29,9 +37,27 @@ namespace TankGame.Views
 			return default;
 		}
 
+		public T ShowViewComponent<T>() where T : MonoBehaviour
+		{
+			var prefab = viewDatabase.GetViewComponent<T>();
+			if (prefab != null)
+			{
+				var parent = CurrentView.transform;
+				var instance = Object.Instantiate(prefab, parent);
+				
+				return instance;
+			}
+			return default;
+		}
+
 		private void ClosedView(View view)
 		{
 			viewStack.Remove(view);
+		}
+
+		public Camera GetViewCamera()
+		{
+			return CurrentView.Camera;
 		}
 	}
 }

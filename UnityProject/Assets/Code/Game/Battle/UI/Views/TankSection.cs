@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TankGame.Views;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,37 +13,27 @@ namespace TankGame.Game
 		[SerializeField] private Text crewMemberFatigueText;
 		[SerializeField] private Image crewProfileImage;
 		[SerializeField] private Image crewHasActedImage;
-		[SerializeField] private TankSectionAbility[] sectionAbilities;
+		[SerializeField] private TankSectionAbility[] oldSectionAbilities;
 
-		private Dictionary<TankAbility, TankSectionAbility> sectionAbilityLookup = new Dictionary<TankAbility, TankSectionAbility>();
+		[SerializeField] private TemplatePool sectionAbilityPool;
 
-		private void Start()
-		{
-			foreach (var sectionAbility in sectionAbilities)
-			{
-				if (!sectionAbilityLookup.ContainsValue(sectionAbility))
-				{
-					sectionAbility.gameObject.SetActive(false);
-				}
-			}
-			crewHasActedImage.gameObject.SetActive(false);
-		}
+		private List<TankSectionAbility> sectionAbilities = new List<TankSectionAbility>();
+
+		public TankPart TankPart { get; private set; }
 
 		public void Initialize(TankPart tankPart, CrewMemberState crewMember)
 		{
-			gameObject.SetActive(true);
+			TankPart = tankPart;
 			sectionNameText.text = tankPart.ToString();
+			crewHasActedImage.gameObject.SetActive(false);
 		}
 
 		public void RegisterAbility(int slot, TankAbility tankAbility, Action<TankSectionAbility> onHoverAbility, Action<TankSectionAbility> onPressedAbility)
 		{
-			var sectionAbility = sectionAbilities[slot];
-			sectionAbility.gameObject.SetActive(true);
-			sectionAbilityLookup.Add(tankAbility, sectionAbility);
+			var sectionAbility = sectionAbilityPool.GetInstance<TankSectionAbility>();
+			sectionAbility.Initialize(tankAbility, onPressedAbility, onHoverAbility);
 
-			sectionAbility.TankAbility = tankAbility;
-			sectionAbility.OnPressed += () => onPressedAbility(sectionAbility);
-			sectionAbility.OnHover += () => onHoverAbility(sectionAbility);
+			sectionAbilities.Add(sectionAbility);
 		}
 
 		public void UpdateCrewState(CrewMemberState crewMember)
