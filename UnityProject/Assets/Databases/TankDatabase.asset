@@ -15,25 +15,26 @@ MonoBehaviour:
   tankStates:
   - id: Test
     hullHp: 10
-    tankPartStates:
-    - tankPart: 0
+    maxHp: 10
+    tankSectionState:
+    - tankSection: 0
       maxHealth: 3
       health: 3
       abilityIds:
       - Drive
-    - tankPart: 1
+    - tankSection: 1
       maxHealth: 3
       health: 3
       abilityIds:
       - FireCannon
-    - tankPart: 2
-      maxHealth: 2
-      health: 2
+    - tankSection: 2
+      maxHealth: 3
+      health: 3
       abilityIds:
       - FireMachineGun
-    - tankPart: 3
-      maxHealth: 2
-      health: 2
+    - tankSection: 3
+      maxHealth: 3
+      health: 3
       abilityIds:
       - Scan
   tankAbilities:
